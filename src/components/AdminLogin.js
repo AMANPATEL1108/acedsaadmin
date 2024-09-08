@@ -13,7 +13,6 @@ const AdminLogin = () => {
     setError("");
 
     if (email === "admin@example.com" && password === "admin123") {
-      // Redirect to the admin dashboard after successful login
       navigate("/admin/dashboard");
     } else {
       setError("Invalid login credentials");
