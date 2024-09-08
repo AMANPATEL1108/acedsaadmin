@@ -26,12 +26,16 @@ const AdminLogin = () => {
         <div className="flex justify-center items-center h-full">
           <div className="w-full max-w-md">
             <div className="bg-white shadow-md rounded-lg p-6">
-              <h3 className="text-2xl font-semibold mb-6 text-center">Sign in</h3>
+              <h3 className="text-2xl font-semibold mb-6 text-center">
+                Sign in
+              </h3>
 
               <form onSubmit={handleSubmit}>
-                {/* Email Input */}
                 <div className="mb-4 text-left">
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="typeEmailX-2">
+                  <label
+                    className="block text-sm font-medium text-gray-700"
+                    htmlFor="typeEmailX-2"
+                  >
                     Email
                   </label>
                   <input
@@ -44,9 +48,11 @@ const AdminLogin = () => {
                   />
                 </div>
 
-                {/* Password Input */}
                 <div className="mb-4 text-left">
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="typePasswordX-2">
+                  <label
+                    className="block text-sm font-medium text-gray-700"
+                    htmlFor="typePasswordX-2"
+                  >
                     Password
                   </label>
                   <input
@@ -68,7 +74,10 @@ const AdminLogin = () => {
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
                   />
-                  <label className="ml-2 block text-sm text-gray-900" htmlFor="form1Example3">
+                  <label
+                    className="ml-2 block text-sm text-gray-900"
+                    htmlFor="form1Example3"
+                  >
                     Remember password
                   </label>
                 </div>
