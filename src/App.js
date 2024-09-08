@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
-import ManageUsers from "./components/ManageUsers"; // Assuming you have ManageUsers component
+import ManageQuestions from "./components/ManageQuestions"; // Corrected component name
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
       <Routes>
         <Route path="/" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/manage-users" element={<ManageUsers />} />
+        <Route path="/manage-questions" element={<ManageQuestions />} />{" "}
+        {/* Corrected route */}
       </Routes>
     </Router>
   );

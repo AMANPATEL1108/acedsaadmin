@@ -5,3 +5,15 @@
 .card {
   border-radius: 1rem;
 }
+/* Sidebar button improvements */
+button {
+  @apply transition-colors duration-300 ease-in-out;
+}
+
+button:hover {
+  @apply bg-gray-600;
+}
+
+button.active {
+  @apply bg-gray-700 text-white;
+}
