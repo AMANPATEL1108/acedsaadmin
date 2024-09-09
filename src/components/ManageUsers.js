@@ -1,17 +1,41 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast"; // Import toast for notifications
 
-const ManageUsers = ({ users, removeUser, addUser }) => {
+const ManageUsers = () => {
+  // Static data for users
+  const initialUsers = [
+    { id: 1, name: "John Doe", email: "john@example.com" },
+    { id: 2, name: "Jane Smith", email: "jane@example.com" },
+  ];
+
+  // State to manage users
+  const [users, setUsers] = useState(initialUsers);
   const [showAddForm, setShowAddForm] = useState(false); // State to show or hide the form
   const [newUser, setNewUser] = useState({ name: "", email: "" }); // State for new user data
 
+  // Function to add a new user
+  const addUser = (user) => {
+    // Generate a new ID based on the highest existing ID
+    const newId = users.length ? Math.max(...users.map((u) => u.id)) + 1 : 1;
+    const updatedUsers = [...users, { ...user, id: newId }];
+    setUsers(updatedUsers);
+    toast.success("User added successfully!"); // Show success notification
+  };
+
+  // Function to remove a user
+  const removeUser = (id) => {
+    const updatedUsers = users.filter((user) => user.id !== id);
+    setUsers(updatedUsers);
+    toast.success("User removed successfully!"); // Show success notification
+  };
+
+  // Handle add user form submission
   const handleAddUser = (e) => {
     e.preventDefault();
     if (newUser.name && newUser.email) {
-      addUser(newUser); // Call the addUser function passed as a prop
+      addUser(newUser); // Call the addUser function
       setNewUser({ name: "", email: "" }); // Reset form fields
       setShowAddForm(false); // Close the modal
-      // toast.success("User added successfully!"); // Show success notification
     } else {
       toast.error("Please fill in all fields."); // Show error if fields are empty
     }
@@ -96,24 +120,32 @@ const ManageUsers = ({ users, removeUser, addUser }) => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
-            <tr
-              key={user.id}
-              className="border-b hover:bg-gray-50 transition-colors duration-300 ease-in-out"
-            >
-              <td className="px-4 py-2">{user.id}</td>
-              <td className="px-4 py-2">{user.name}</td>
-              <td className="px-4 py-2">{user.email}</td>
-              <td className="px-4 py-2 space-x-2">
-                <button
-                  onClick={() => removeUser(user.id, user.name)}
-                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-300 ease-in-out"
-                >
-                  Remove
-                </button>
+          {users.length > 0 ? (
+            users.map((user) => (
+              <tr
+                key={user.id}
+                className="border-b hover:bg-gray-50 transition-colors duration-300 ease-in-out"
+              >
+                <td className="px-4 py-2">{user.id}</td>
+                <td className="px-4 py-2">{user.name}</td>
+                <td className="px-4 py-2">{user.email}</td>
+                <td className="px-4 py-2 space-x-2">
+                  <button
+                    onClick={() => removeUser(user.id)}
+                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-300 ease-in-out"
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" className="text-center px-4 py-2">
+                No users available.
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

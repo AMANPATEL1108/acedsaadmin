@@ -1,86 +1,34 @@
-import React, { useState, useEffect } from "react";
-import toast from "react-hot-toast"; // Make sure toast is imported
-import ManageQuestions from "./ManageQuestions";
-import ManageUsers from "./ManageUsers";
+import React, { useState } from "react";
+import Sidebar from "./Sidebar"; // Import Sidebar
+import ManageQuestions from "./ManageQuestions"; // Import ManageQuestions
+import ManageUsers from "./ManageUsers"; // Import ManageUsers
+import Dashboard from "./Dashboard"; // Import Dashboard
 
 const AdminDashboard = () => {
-  const [currentPage, setCurrentPage] = useState(() => {
-    const savedPage = localStorage.getItem("currentPage");
-    return savedPage || "dashboard";
-  });
+  const [activeComponent, setActiveComponent] = useState("dashboard"); // Default section
 
-  const [users, setUsers] = useState([
-    { id: 1, name: "John Doe", email: "john@example.com" },
-    { id: 2, name: "Jane Smith", email: "jane@example.com" },
-  ]);
-
-  // Function to remove a user
-  const removeUser = (userId, userName) => {
-    setUsers(users.filter((user) => user.id !== userId));
-    toast.error(`User ${userName} has been removed!`);
-  };
-
-  // Function to add a user
-  const addUser = (newUser) => {
-    const newId = users.length ? users[users.length - 1].id + 1 : 1;
-    setUsers([...users, { ...newUser, id: newId }]);
-    toast.success(`User ${newUser.name} has been added!`);
-  };
-
-  useEffect(() => {
-    localStorage.setItem("currentPage", currentPage);
-  }, [currentPage]);
-
+  // Function to dynamically render the selected component
   const renderContent = () => {
-    if (currentPage === "manageDSA") {
-      return <ManageQuestions />;
+    switch (activeComponent) {
+      case "manageQuestions":
+        return <ManageQuestions />;
+      case "manageUsers":
+        return <ManageUsers />;
+      case "dashboard":
+      default:
+        return <Dashboard />;
     }
-
-    if (currentPage === "manageUsers") {
-      return (
-        <ManageUsers users={users} removeUser={removeUser} addUser={addUser} />
-      );
-    }
-
-    return <div>Dashboard Content</div>;
   };
 
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <div className="w-64 bg-gray-800 text-white shadow-md">
-        <nav className="px-6 py-4">
-          <button
-            onClick={() => setCurrentPage("dashboard")}
-            className={`w-full text-left px-4 py-3 mt-2 rounded-md ${
-              currentPage === "dashboard" ? "bg-gray-700" : "hover:bg-gray-600"
-            } transition-colors duration-300 ease-in-out`}
-          >
-            Dashboard
-          </button>
-          <button
-            onClick={() => setCurrentPage("manageDSA")}
-            className={`w-full text-left px-4 py-3 mt-2 rounded-md ${
-              currentPage === "manageDSA" ? "bg-gray-700" : "hover:bg-gray-600"
-            } transition-colors duration-300 ease-in-out`}
-          >
-            Manage DSA Questions
-          </button>
-          <button
-            onClick={() => setCurrentPage("manageUsers")}
-            className={`w-full text-left px-4 py-3 mt-2 rounded-md ${
-              currentPage === "manageUsers"
-                ? "bg-gray-700"
-                : "hover:bg-gray-600"
-            } transition-colors duration-300 ease-in-out`}
-          >
-            Manage Users
-          </button>
-        </nav>
-      </div>
+    <div className="admin-dashboard flex">
+      {/* Sidebar passing setActiveComponent function */}
+      <Sidebar setActiveComponent={setActiveComponent} />
 
-      {/* Main Content */}
-      <div className="flex-1 p-8">{renderContent()}</div>
+      {/* Main content area */}
+      <div className="main-content flex-1 p-4">
+        {renderContent()} {/* Dynamic content rendering */}
+      </div>
     </div>
   );
 };

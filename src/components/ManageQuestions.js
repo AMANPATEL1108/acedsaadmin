@@ -314,7 +314,7 @@ const ManageQuestions = () => {
                   <>
                     <button
                       onClick={saveEditQuestion}
-                      className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors duration-300 ease-in-out"
+                      className="bg-green-500 text-white px-4 py-2 ml-2 mb-2 rounded-md hover:bg-green-600 transition-colors duration-300 ease-in-out"
                     >
                       Save
                     </button>
