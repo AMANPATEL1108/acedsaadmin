@@ -45,6 +45,7 @@ const ManageQuestions = () => {
     video_solution_link: "",
   });
 
+  // Add new question
   const addQuestion = (e) => {
     e.preventDefault();
     if (newQuestion.title) {
@@ -84,11 +85,13 @@ const ManageQuestions = () => {
     }
   };
 
+  // Remove a question
   const removeQuestion = (id, questionText) => {
     setQuestions(questions.filter((q) => q.stat.question_id !== id));
     toast.error(`Question "${questionText}" has been removed!`);
   };
 
+  // Start editing a question
   const startEditQuestion = (question) => {
     setEditQuestionId(question.stat.question_id);
     setEditQuestionData({
@@ -100,6 +103,7 @@ const ManageQuestions = () => {
     });
   };
 
+  // Cancel edit
   const cancelEdit = () => {
     setEditQuestionId(null);
     setEditQuestionData({
@@ -111,6 +115,7 @@ const ManageQuestions = () => {
     });
   };
 
+  // Save the edited question
   const saveEditQuestion = (e) => {
     e.preventDefault();
     if (editQuestionData.title) {

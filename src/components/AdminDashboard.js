@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast"; // Make sure toast is imported
 import ManageQuestions from "./ManageQuestions";
 import ManageUsers from "./ManageUsers";
 
@@ -14,9 +14,17 @@ const AdminDashboard = () => {
     { id: 2, name: "Jane Smith", email: "jane@example.com" },
   ]);
 
+  // Function to remove a user
   const removeUser = (userId, userName) => {
     setUsers(users.filter((user) => user.id !== userId));
     toast.error(`User ${userName} has been removed!`);
+  };
+
+  // Function to add a user
+  const addUser = (newUser) => {
+    const newId = users.length ? users[users.length - 1].id + 1 : 1;
+    setUsers([...users, { ...newUser, id: newId }]);
+    toast.success(`User ${newUser.name} has been added!`);
   };
 
   useEffect(() => {
@@ -29,7 +37,9 @@ const AdminDashboard = () => {
     }
 
     if (currentPage === "manageUsers") {
-      return <ManageUsers users={users} removeUser={removeUser} />;
+      return (
+        <ManageUsers users={users} removeUser={removeUser} addUser={addUser} />
+      );
     }
 
     return <div>Dashboard Content</div>;
@@ -70,10 +80,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-8">
-        <Toaster position="top-right" />
-        {renderContent()}
-      </div>
+      <div className="flex-1 p-8">{renderContent()}</div>
     </div>
   );
 };

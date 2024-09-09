@@ -1,3 +1,4 @@
+// index.js
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -10,7 +11,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />
-    <Toaster /> {/* This renders the toaster for notifications */}
+    <Toaster position="top-center" />{" "}
+    {/* Only one Toaster, globally positioned */}
   </React.StrictMode>
 );
 
